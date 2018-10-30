@@ -71,8 +71,8 @@ public class KepBeolv {
 		                master.getGraphics().drawImage(image, imageAttr.get("imageLeftPosition"), imageAttr.get("imageTopPosition"), null);
 		            }
 		        }
-		       // ImageIO.write(master, "GIF", new File( i + ".gif")); 
-		       tar.add(master);
+		       ImageIO.write(master, "GIF", new File( i + ".gif")); 
+		       tar.add(ImageIO.read(new File(i + ".gif")));
 		    }
 		} catch (IOException e) {
 		    e.printStackTrace();

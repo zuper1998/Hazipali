@@ -7,7 +7,7 @@ public class Transformator {
 		// TODO Auto-generated constructor stub
 	}
 
-	static int karakter_szam = 765 / 4;
+	static int karakter_szam = 765 / 5;
 
 	private static Rgbcont[][] alakito(BufferedImage img) {
 		Rgbcont[][] alak = new Rgbcont[img.getWidth()][img.getHeight()];
@@ -25,22 +25,29 @@ public class Transformator {
 
 	private static char characterizator(Rgbcont[][] alak, int szel, int mag, int kezd_s, int kezd_m) {
 		int loc_val = 0;
+		if ((kezd_m >= alak.length) || (kezd_s >= alak[kezd_m].length)) {
+			return '-';
+		}
+
 		for (int i = 0; i < szel; i++) {
 
 			for (int k = 0; k < mag; k++) {
-				loc_val += alak[k + kezd_m][i + kezd_s].get_val();
+				loc_val += alak[kezd_m + k][kezd_s + i].get_val();
 
 			}
 		}
-		loc_val = loc_val / (szel * mag);
-		if (loc_val < karakter_szam) {
-			return 'a';
+		loc_val = loc_val / (szel * mag + 1);
+
+		if (loc_val < karakter_szam * 1.3) {
+			return '@';
 		} else if (loc_val < karakter_szam * 2) {
-			return '0';
+			return '#';
 		} else if (loc_val < karakter_szam * 3) {
-			return '/';
+			return '+';
+		} else if (loc_val < karakter_szam * 4) {
+			return ',';
 		} else {
-			return '*';
+			return '.';
 		}
 	}
 
@@ -49,6 +56,7 @@ public class Transformator {
 		ArrayList<ArrayList<ArrayList<Character>>> char_tar = new ArrayList<ArrayList<ArrayList<Character>>>();
 
 		for (int i = 0; i < kep_tar.size(); i++) {
+			
 			char_tar.add(sub_converter(kep_tar.get(i)));
 		}
 
@@ -57,17 +65,28 @@ public class Transformator {
 	}
 
 	public static ArrayList<ArrayList<Character>> sub_converter(BufferedImage img) {
-		int szel = 2;
-		int mag = 3;
+		int szel = 3; 
+		int mag = 2;
 		int dady_counter = 0;
 		Rgbcont[][] alak = Transformator.alakito(img);
+
 		ArrayList<ArrayList<Character>> the_father = new ArrayList<ArrayList<Character>>();
-		for (int i = 0; i < img.getWidth() / szel; i = i + szel) {
+		for (int i = 0; i < img.getWidth(); i = i + szel) {
 			the_father.add(new ArrayList<Character>());
 
-			for (int k = 0; k < img.getHeight() / mag; k = k + mag) {
-				the_father.get(dady_counter).add(characterizator(alak, szel, mag, i, k));
+			for (int k = 0; k < img.getHeight(); k = k + mag) {
+				if ((i + szel >= img.getWidth()) && (k + mag >= img.getHeight())) {
+					the_father.get(dady_counter).add(characterizator(alak, 0, 0, i, k));
 
+				} else if (k + mag >= img.getHeight()) {
+					the_father.get(dady_counter).add(characterizator(alak, szel, 0, i, k));
+
+				} else if (i + szel >= img.getWidth()) {
+					the_father.get(dady_counter).add(characterizator(alak, 0, mag, i, k));
+
+				} else {
+					the_father.get(dady_counter).add(characterizator(alak, szel, mag, i, k));
+				}
 			}
 			dady_counter++;
 		}
