@@ -71,6 +71,8 @@ public class KepBeolv {
 		        }
 		       ImageIO.write(master, "GIF", new File( i + ".gif")); 
 		       tar.add(ImageIO.read(new File(i + ".gif")));
+		       File a =new File(i + ".gif");
+		       a.delete();
 		    }
 		} catch (IOException e) {
 		    e.printStackTrace();

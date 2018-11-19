@@ -21,7 +21,7 @@ public class TestMAin {
 		}*/
 		
 		
-		Graph g = new Graph(null);
+		Graph g = new Graph();
 		try {
 			g.ui_main();
 		} catch (IOException e) {
