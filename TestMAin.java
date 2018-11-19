@@ -9,8 +9,8 @@ public class TestMAin {
 
 		ArrayList<BufferedImage> tar = null;
 
-		try {
-			tar = KepBeolv.kepolv("C://Users//Narcano//workspace//Hazipali//tenor1.gif");
+	/*	try {
+	//		tar = KepBeolv.kepolv("/home/andris/eclipse-workspace/Hazipali/src/tenor.gif");
 		} catch (IOException e) {
 
 			e.printStackTrace();
@@ -18,15 +18,15 @@ public class TestMAin {
 		}
 		for (int i=0;i<tar.size()-1;i++){
 			System.out.println(tar.get(i).equals(tar.get(i+1)));
-		}
+		}*/
 		
 		
-		Graph g = new Graph(Transformator.converter(tar));
+		Graph g = new Graph(null);
 		try {
-			g.graph();
-		} catch (InterruptedException e) {
+			g.ui_main();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("FIle not found");
 		}
 
 	}

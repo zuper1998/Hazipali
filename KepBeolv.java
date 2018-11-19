@@ -21,16 +21,14 @@ public class KepBeolv {
 	public KepBeolv(){
 		
 	}
-	public static ArrayList<BufferedImage>  kepolv(String s) throws IOException, FileNotFoundException{
-		
-		FileInputStream f= new FileInputStream(s);
+	public static ArrayList<BufferedImage>  kepolv(File s) throws IOException, FileNotFoundException{
 		ArrayList<BufferedImage> tar =convert(s);
 		return tar;
 		
 		
 	}
 
-	public static ArrayList<BufferedImage> convert(String file){
+	public static ArrayList<BufferedImage> convert(File file){
 		ArrayList<BufferedImage> tar = new ArrayList<BufferedImage>();
 		try {
 		    String[] imageatt = new String[]{
@@ -41,7 +39,7 @@ public class KepBeolv {
 		    };    
 
 		    ImageReader reader = (ImageReader)ImageIO.getImageReadersByFormatName("gif").next();
-		    ImageInputStream ciis = ImageIO.createImageInputStream(new File(file));
+		    ImageInputStream ciis = ImageIO.createImageInputStream(file);
 		    reader.setInput(ciis, false);
 
 		    int noi = reader.getNumImages(true);
