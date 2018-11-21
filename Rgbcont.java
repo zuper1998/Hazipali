@@ -1,4 +1,7 @@
 
+package hf_Test;
+
+
 public class Rgbcont {
  int red;
  int green;
@@ -15,9 +18,7 @@ public class Rgbcont {
  	}
  	
  	
- 	public void print(){
- 		System.out.println(red + " "+green+" "+blue);
- 	}
+ 	
  	public int get_val(){
  		return red+green+blue;
  	}

@@ -1,5 +1,9 @@
+package hf_Test;
+
+
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
 
 public class Transformator {
 
@@ -9,7 +13,7 @@ public class Transformator {
 
 	static int karakter_szam = 765 / 5;
 
-	private static Rgbcont[][] alakito(BufferedImage img) {
+	 static Rgbcont[][] alakito(BufferedImage img) {
 		Rgbcont[][] alak = new Rgbcont[img.getWidth()][img.getHeight()];
 
 		for (int x = 0; x < img.getWidth(); x++) {
@@ -23,7 +27,7 @@ public class Transformator {
 		return alak;
 	}
 
-	private static char characterizator(Rgbcont[][] alak, int szel, int mag, int kezd_s, int kezd_m) {
+	 static char characterizator(Rgbcont[][] alak, int szel, int mag, int kezd_s, int kezd_m) {
 		int loc_val = 0;
 		if ((kezd_m >= alak.length) || (kezd_s >= alak[kezd_m].length)) {
 			return '-';
@@ -51,9 +55,9 @@ public class Transformator {
 		}
 	}
 
-	public static ArrayList<ArrayList<ArrayList<Character>>> converter(ArrayList<BufferedImage> kep_tar) {
+	public static Monster_container converter(ArrayList<BufferedImage> kep_tar) {
 
-		ArrayList<ArrayList<ArrayList<Character>>> char_tar = new ArrayList<ArrayList<ArrayList<Character>>>();
+		Monster_container char_tar = new Monster_container();
 
 		for (int i = 0; i < kep_tar.size(); i++) {
 			
@@ -64,10 +68,10 @@ public class Transformator {
 
 	}
 
-	public static ArrayList<ArrayList<Character>> sub_converter(BufferedImage img) {
+	static ArrayList<ArrayList<Character>> sub_converter(BufferedImage img) {
 		int szel = 3; 
 		int mag = 2;
-		int dady_counter = 0;
+		int main_arr_counter = 0;
 		Rgbcont[][] alak = Transformator.alakito(img);
 
 		ArrayList<ArrayList<Character>> the_father = new ArrayList<ArrayList<Character>>();
@@ -76,19 +80,19 @@ public class Transformator {
 
 			for (int k = 0; k < img.getHeight(); k = k + mag) {
 				if ((i + szel >= img.getWidth()) && (k + mag >= img.getHeight())) {
-					the_father.get(dady_counter).add(characterizator(alak, 0, 0, i, k));
+					the_father.get(main_arr_counter).add(characterizator(alak, 0, 0, i, k));
 
 				} else if (k + mag >= img.getHeight()) {
-					the_father.get(dady_counter).add(characterizator(alak, szel, 0, i, k));
+					the_father.get(main_arr_counter).add(characterizator(alak, szel, 0, i, k));
 
 				} else if (i + szel >= img.getWidth()) {
-					the_father.get(dady_counter).add(characterizator(alak, 0, mag, i, k));
+					the_father.get(main_arr_counter).add(characterizator(alak, 0, mag, i, k));
 
 				} else {
-					the_father.get(dady_counter).add(characterizator(alak, szel, mag, i, k));
+					the_father.get(main_arr_counter).add(characterizator(alak, szel, mag, i, k));
 				}
 			}
-			dady_counter++;
+			main_arr_counter++;
 		}
 
 		return the_father;
