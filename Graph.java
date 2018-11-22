@@ -30,17 +30,30 @@ import javax.swing.JTextArea;
 import javax.swing.RepaintManager;
 import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileNameExtensionFilter;
+/**
+ * Ez a fő megjelenitő osztály, ezen keresztűl "látjuk" az animáéciót.
+ *Tesztelés esetén a IS_THIS_A_TEST változót 0ra kell állitani.
+ * 
+ * 
+ *@author Mihály András
+ *
+ *
+ *
+ */
 
 public class Graph extends JFrame implements Serializable {
-	/**
-	 * 
-	 */
 
-	static final int IS_THIS_A_TEST = 1; // if testing set it to 1
+	static final int IS_THIS_A_TEST = 0; // if testing set it to 1
 	public String test_file_loc = "";
 	private static final long serialVersionUID = -2718930649317233168L;
 	Monster_container cont = null;
 
+	/**
+	A konstruktor, a kovetkező dolgokat állitja be: Lazout, Font, size, Resizable, Visible
+	@see JFrame
+	
+	
+	*/
 	public Graph() {
 
 		setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
@@ -53,6 +66,15 @@ public class Graph extends JFrame implements Serializable {
 		setVisible(true);
 	}
 
+	/**
+	 A kapott karakter ArrayListet egy string-é alakítja
+	 @param a egy charactereket tároló arraylist
+	 @return b a kapott arraylist stringként
+	 
+	  
+	  
+	  
+	*/
 	static String convertSA(ArrayList<Character> a) {
 		String b = "";
 		for (int i = 0; i < a.size(); i++) {
@@ -62,6 +84,18 @@ public class Graph extends JFrame implements Serializable {
 		return b;
 	}
 
+	/**
+	Fő ui (mint a neve is mondja), 4 gomb segitsegevel vegezzuk el átalakítást:
+	 -save elmenti .yeet fájlba a cont objektumot
+	 -load betölti a cont objektumot
+	 -choose egy gifet betölt és átlakít karakter sorozattá majd a cont objektumba rakja
+	 -start megkezdi az animációt
+	
+	
+	
+	
+	
+	*/
 	public void ui_main() {
 		JPanel jpan = new JPanel();
 		add(jpan);
@@ -71,8 +105,8 @@ public class Graph extends JFrame implements Serializable {
 		JButton load = new JButton("Load");
 		jpan.add(load);
 		// txt button
-		JButton jb_text = new JButton("Choose File");
-		jpan.add(jb_text);
+		JButton jb_choose = new JButton("Choose File");
+		jpan.add(jb_choose);
 		// Inf text field
 		JTextArea jta_inf = new JTextArea();
 		jpan.add(jta_inf);
@@ -101,7 +135,7 @@ public class Graph extends JFrame implements Serializable {
 				}
 			}
 		});
-		jb_text.addActionListener(new ActionListener() {
+		jb_choose.addActionListener(new ActionListener() {
 
 			@SuppressWarnings("unused")
 			@Override
@@ -123,7 +157,7 @@ public class Graph extends JFrame implements Serializable {
 					} else {
 						int returnVal = chooser.showOpenDialog(jpan);
 						if (returnVal == JFileChooser.APPROVE_OPTION) {
-							jta_inf.setText("Loading...");
+							jta_inf.setText("Error wrong file type");
 							cont = Transformator.converter(KepBeolv.kepolv(chooser.getSelectedFile()));
 						}
 					}
@@ -222,6 +256,17 @@ public class Graph extends JFrame implements Serializable {
 
 	}
 
+	/**
+	az animációt végrahajtó fügvény, egy JTextArea objektumot helyez el a felületen, melyre meghivja az azt változtató Text_writer threadet
+	
+	@throws InterruptedException   a thread miatt 
+	@throws NullAnimExepton      ha üres a cont ezt dobja
+	
+	
+	
+	
+	
+	*/
 	public void graph() throws InterruptedException, NullAnimExepton {
 
 		JPanel jp_anim = new JPanel();

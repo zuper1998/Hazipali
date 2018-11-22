@@ -4,15 +4,27 @@ package hf_Test;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-
+/**
+ * Ez az osztály végzi el a BufferedImage átalakitását Character tömbé
+ * 
+ * 
+ * @author Mihály András
+ */
 public class Transformator {
+	
+	
+	
+	
+	
+	static int karakter_szam = 765 / 5; // ez alapján bontja fel a képet karakterekre
 
-	public Transformator() {
-		// TODO Auto-generated constructor stub
-	}
-
-	static int karakter_szam = 765 / 5;
-
+	
+	
+	/**
+	 * A képből kiolvassa annak szinkódját majd egy 2d Rgbcont-ba rakja
+	 * @param img Kapott kép
+	 * @return alak egy 2d a szinkódok tárolására specializált Rgbcont
+	 */
 	 static Rgbcont[][] alakito(BufferedImage img) {
 		Rgbcont[][] alak = new Rgbcont[img.getWidth()][img.getHeight()];
 
@@ -27,6 +39,16 @@ public class Transformator {
 		return alak;
 	}
 
+	 /**
+	  * a kapott szinkódtömb egy darabját egy karakterre redukálja
+	  * @param alak kapott 2d szinkód tároló
+	  * @param szel mekkora szélességi határig kell beolvasni a szinkódokat
+	  * @param mag  mekkora magassági határig kell beolvasni a szinkódokat
+	  * @param kezd_s  kezdő szélességi koordináta
+	  * @param kezd_m  kezdő magassági koodináta
+	  * @return
+	  */
+	 
 	 static char characterizator(Rgbcont[][] alak, int szel, int mag, int kezd_s, int kezd_m) {
 		int loc_val = 0;
 		if ((kezd_m >= alak.length) || (kezd_s >= alak[kezd_m].length)) {
@@ -55,6 +77,14 @@ public class Transformator {
 		}
 	}
 
+	 
+	 
+	 
+	 /**
+	  * a fő fügvény melyenen keresztül folyik a teljes átalakítás
+	  * @param kep_tar gif-ből kiolvasott képek
+	  * @return char_tar tartalmazza az átalakított karakter tömböket
+	  */
 	public static Monster_container converter(ArrayList<BufferedImage> kep_tar) {
 
 		Monster_container char_tar = new Monster_container();
@@ -68,6 +98,12 @@ public class Transformator {
 
 	}
 
+	
+	/**
+	 * a képet alakitja ASCII képpé, ahol a szélesség az eredet / szél és a magasság az eredeti / mag
+	 * @param img egy átalakitandó kép
+	 * @return the_father a képt karakterekre átalakítva 
+	 */
 	static ArrayList<ArrayList<Character>> sub_converter(BufferedImage img) {
 		int szel = 3; 
 		int mag = 2;

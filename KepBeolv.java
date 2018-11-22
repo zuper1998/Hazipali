@@ -20,18 +20,53 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+
+/**
+Ez az osztály felelős a gif jájlból való beolvasásáért,és több képé alakításáért
+
+
+@author Mihály András
+
+
+
+
+
+
+
+*/
 public class KepBeolv {
-	public KepBeolv() {
 
-	}
+	
+	/**
+	 * Esetleg változtatások esetére lett létrehozva, a beolvasás müveletének bövitését kivánt megkönyíteni
+	 * 
+	 * @param s egy gif file amelyet valahonan beolvastunk, ezt fogja majd átalakitani több BufferedImage-be
+	 * 
+	 * 
+	 * @return tar egy arraylist mely a képeket tárolja
+	 * @throws IOException a beolvaso miatt
+	 *
+	 * 
+	 */
+	
 
-	public static ArrayList<BufferedImage> kepolv(File s) throws IOException, FileNotFoundException {
+	public static ArrayList<BufferedImage> kepolv(File s) throws IOException {
 		ArrayList<BufferedImage> tar = convert(s);
 		return tar;
 
 	}
 
-	public static ArrayList<BufferedImage> convert(File file) {
+	/**
+	 * 
+	 * A munka naggyát végző fügvény, szétszedi a gifben található képeket, adataikat egy fábarendezi majd egyenként beleírja őket az arrazlistbe
+	 * 
+	 * @param file a publikus fügvényből kapott file amit szétszed képekké
+	 * @return tar  egy arraylist mely a képeket tárolja
+	 */
+	
+	
+	
+	 static ArrayList<BufferedImage> convert(File file) {
 		ArrayList<BufferedImage> tar = new ArrayList<BufferedImage>();
 		try {
 			String[] imageatt = new String[] { "imageLeftPosition", "imageTopPosition", "imageWidth", "imageHeight" };
@@ -79,6 +114,14 @@ public class KepBeolv {
 		return tar;
 	}
 
+	 
+	 
+	 /**
+	  *  Mivel a beolvasó fügvény mindig átirja azt a BufferedImage objektumot amin épp dolgozik a biztonságos mentés érdekében kell
+	  *  egy copy fügvény melyel el lehet menteni az aktuális képet
+	  * @param bi A mentendő kép
+	  * @return a képpel megegyező BufferedImage objektum
+	  */
 	static BufferedImage deepCopy(BufferedImage bi) {
 		ColorModel cm = bi.getColorModel();
 		boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
