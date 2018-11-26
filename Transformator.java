@@ -105,27 +105,27 @@ public class Transformator {
 	 * @return the_father a képt karakterekre átalakítva 
 	 */
 	static ArrayList<ArrayList<Character>> sub_converter(BufferedImage img) {
-		int szel = 3; 
-		int mag = 2;
+		int szel = 1; 
+		int mag = 1;
 		int main_arr_counter = 0;
 		Rgbcont[][] alak = Transformator.alakito(img);
-
+System.out.println(img.getWidth()+" "+img.getHeight());
 		ArrayList<ArrayList<Character>> the_father = new ArrayList<ArrayList<Character>>();
-		for (int i = 0; i < img.getWidth(); i = i + szel) {
+		for (int k = 0; k < img.getHeight(); k = k + szel) {
 			the_father.add(new ArrayList<Character>());
 
-			for (int k = 0; k < img.getHeight(); k = k + mag) {
-				if ((i + szel >= img.getWidth()) && (k + mag >= img.getHeight())) {
-					the_father.get(main_arr_counter).add(characterizator(alak, 0, 0, i, k));
+			for (int i = 0; i < img.getWidth(); i = i + mag) {
+					if ((i + szel >= img.getWidth()) && (k + mag >= img.getHeight())) {
+					the_father.get(main_arr_counter).add(characterizator(alak, 0, 0, k, i));
 
 				} else if (k + mag >= img.getHeight()) {
-					the_father.get(main_arr_counter).add(characterizator(alak, szel, 0, i, k));
+					the_father.get(main_arr_counter).add(characterizator(alak, szel, 0, k, i));
 
 				} else if (i + szel >= img.getWidth()) {
-					the_father.get(main_arr_counter).add(characterizator(alak, 0, mag, i, k));
+					the_father.get(main_arr_counter).add(characterizator(alak, 0, mag, k, i));
 
 				} else {
-					the_father.get(main_arr_counter).add(characterizator(alak, szel, mag, i, k));
+					the_father.get(main_arr_counter).add(characterizator(alak, szel, mag, k, i));
 				}
 			}
 			main_arr_counter++;

@@ -125,7 +125,7 @@ public class Graph extends JFrame implements Serializable {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (cont == null) {
-					jta_inf.setText("Select a File you cunt");
+					jta_inf.setText("Select a File");
 				}
 				try {
 					graph();
@@ -268,7 +268,7 @@ public class Graph extends JFrame implements Serializable {
 	
 	*/
 	public void graph() throws InterruptedException, NullAnimExepton {
-
+		System.out.println(cont.size()+"    "+cont.get(2).size());
 		JPanel jp_anim = new JPanel();
 		add(jp_anim);
 		String text = "";
